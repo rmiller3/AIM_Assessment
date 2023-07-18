@@ -10,7 +10,7 @@ public interface Elevator {
     /**
      * Returns all floors the elevator will stop at.
      * @return  Returns an ordered list of destination floors by priority.  The first item will be the next
-     * floor to stop at
+     * floor to stop at (nearest floor assuming the elevator continues in the same direction).
      */
     List<Integer> getDestinationFloors();
 
@@ -29,7 +29,10 @@ public interface Elevator {
     boolean goingUp();
 
     /**
-     * Returns the floor of the next destination of the elevator.
+     * Returns the floor of the next destination of the elevator.  If the elevator is going up, this would be the lowest
+     * of the next floor higher than the current floor in the destination queue or the floor request button list for
+     * floors going up.  That is to say, the elevator would continue going in the same direction and either stop
+     * to pick up a user going in the same direction or drop off a user from it's destination queue.
      * @return Returns the floor of the next destination of the elevator.
      */
     int getNextDestination();

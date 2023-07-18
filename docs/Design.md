@@ -15,7 +15,7 @@ This requests an elevator to a given floor with the desire to go up or down
 
 ##### Returns:  
 Nothing <p>
-An alternative design could be to make this return either the index of the elevator that will respond to the request or that elevator object itself.  Void was chosen for maximum flexibility.  We now have the freedom to create a queue of requests and pick which elevator at a later time.  
+An alternative design could be to make this return either the index of the elevator that will respond to the request or that elevator object itself.  Void was chosen for maximum flexibility.  We now have the freedom to create a queue of requests and pick which elevator at a later time.  The prioritizaiton feature of the queue is not used in this design though.
 
 
 ##### Example Implementation:  
@@ -24,7 +24,7 @@ Adds the current floor to the queue.  If it's already there (enqueued), it doesn
 #### 2.  void AddDestination(int elevator, int floor)
 
 ##### Requirement Scenario:  
-A person requests that they be brought to a floor
+A person requests that they be brought to a floor. 
 ##### Description:  
 Adds the given floor to the given elevator object's destination list.
 
@@ -33,11 +33,11 @@ Adds the given floor to the given elevator object's destination list.
 -  floor:  The floor to add to.
 
 ##### Example Implementation:  
-In the design proposal below, the elevator object itself stores a queue of destinations (which the ElevatorControlSystem could query).  The thought was that this would be an API on the elevator itself.
+In the example design (code in PR), the elevator object itself stores a set of destinations.
 
 #### 3.  List<Integer> RequestDestinations(int elevator)
 ##### Requirement Scenario:  
-An elevator car requests all floors that it’s current passengers are servicing (e.g. to light up the buttons that show which floors the car is going to)
+An elevator car requests all floors that it’s current passengers are requesting (e.g. to light up the buttons that show which floors the car is going to)
 
 ##### Parameters:
 -  elevator:  The index of the elevator to get the list from (an alternative could be to take an elevator object).
@@ -52,7 +52,9 @@ An elevator car requests the next floor it needs to service
 ##### Parameters:
 -  elevator.  The elevator to get the destination for
 
-##### Returns:  The floor number of the destination.
+##### Returns:  
+The floor number of the destination.  <p> 
+If the elevator is going up, this will be the lowest floor above the current floor among the queue of floor call buttons requesting to go up (i.e. to pick up users wanting to get on) or the lowest destination floor (i.e to drop off users).  The opposite is true for elevators currently going down.  If there are no such users it will pick up users wanting to go in the opposite direction at the far extreme (i.e. the top user wanting to go down if the elevator was going up).
 
 ### Detailed Design.
 
@@ -66,7 +68,7 @@ While our design is just for the API, it is helpful to think about an example im
     1.  The current floor
     2.  Whether it is going up or down.
     3.  A "desinationRequest" subroutine which represents a boarded passenger desiring to go to a certain destination.  
-    4.  A FIFO queue of destinations.  
+    4.  A set of destinations.  
 3.  A FloorButton class which contains:
     1.  The floor it represents
     2.  Whether it represents an 'up' request or a 'down' request.  

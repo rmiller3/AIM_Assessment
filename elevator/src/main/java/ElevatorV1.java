@@ -99,6 +99,9 @@ public class ElevatorV1 implements Elevator {
             return Math.min(nextFloorInDestinationList, nextFloorInFloorQueue);
         }
 
+        // Elevator was going down.  If there's no users going down below the current floor and no floors below
+        // the current floor in the on-board destination list, pick up the user on the lowest floor needing to go up
+        // and change directions.
         if (nextFloorInDestinationList == -1 && nextFloorInFloorQueue == -1) {
             int minFloorNeedingToGoUp = elevatorControlSystem.getMinFloorNeedingToGoUp();
             if (minFloorNeedingToGoUp == -1) {

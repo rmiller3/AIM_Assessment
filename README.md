@@ -32,20 +32,20 @@ A generic tomcat page should be visible.
 #### Build the Package
 
 ```{MAVEN_INSTALLATION_PATH}\bin\mvn clean install``` 
-should create a WAR file that can run at tomcat.  Since I was working with a new install, see the common errors section if it doesn't build properly.
+should create a WAR file that can run on tomcat.  Since I was working with a new install, see the common errors section if it doesn't build properly.
 
 #### Deploy the Package
 
 1.  Copy elevator.war from the target directory to {tomcat installation folder}/bin/webapps
-2.  Restart the server (shut it down with ```{tomcat installation folder}\bin\catalina.bat run``` or by hitting ctrl+c on the command window you previously started it with and then rerun the catalina run command.
+2.  Restart the server (shut it down with ```{tomcat installation folder}\bin\catalina.bat run``` or by hitting ctrl+c on the command window you previously started it with.  Then rerun the catalina run command).
 3.  Test the deployment by navigating to 
-```http://localhost:8080/elevator```
+```http://localhost:8080/elevator```<br>
 A Hello World page should be visible.  
 4.  If the web server was working properly the APIs should work such as 
-```http://localhost:8080/elevator/getNextDestination/0```
-Postman could also be used which provides a convenient UI for the POST calls.
+```http://localhost:8080/elevator/getNextDestination/0```<br>
+Postman could also be used which provides a convenient UI for the POST call parameters.
 
 #### Common errors:
-1.  "Cannot access defaults field of Properties".  The default maven web application seems to rely on the WAR plugin.  There is some inconsistancy with the configuration in the pom.
+1.  "Cannot access defaults field of Properties".  The default maven web application seems to rely on the WAR plugin.  There is some inconsistancy with the configuration in the pom.  The plugin version needs to be set properly in the POM.  If it is not set, or is the wrong version, this error has appeared.  
 2.  Annotations don't work properly, specifically @VisibleForTesting. This seemed to be related to the version of the compiler in the pom.
 
