@@ -1,6 +1,6 @@
-Original Project Documentation:
+## Original Project Documentation:
 
-Scenario
+### Scenario
 
 You are a part of a new development team that is supplying an API (over http) that will be used by multiple dependent teams. It is your task to design the API and implement a minimal set of code that the other teams can use to test their integration. Unblocking those teams by creating the interface is more important than building a complete set of business logic.
 
@@ -16,7 +16,7 @@ Another developer should be able to clone the git repo and invoke a single comma
 
 The code should be developed in the same way that you develop in day-to-day professional work and branched, committed and merged as you would a production service.
 
-Evaluation Criteria 
+### Evaluation Criteria 
 
 · Your overall strategy and methodology
 · The quality of your documentation,  
